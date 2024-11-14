@@ -2,6 +2,7 @@ export const AiProvider = {
   OpenAI: 'openai',
   Anthropic: 'anthropic',
   XAI: 'Xai',
+  Ollama: 'ollama',
   Custom: 'custom',
 } as const;
 
@@ -11,6 +12,7 @@ export const defaultModels: Record<AiProviderType, string> = {
   [AiProvider.OpenAI]: 'chatgpt-4o-latest',
   [AiProvider.Anthropic]: 'claude-3-5-sonnet-latest',
   [AiProvider.Custom]: 'mistral-nemo',
+  [AiProvider.Ollama]: 'qwen2.5-coder',
   [AiProvider.XAI]: 'grok-beta',
 } as const;
 

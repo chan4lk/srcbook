@@ -285,6 +285,7 @@ export function AiSettings({ saveButtonLabel }: AiSettingsProps) {
               <SelectItem value="openai">openai</SelectItem>
               <SelectItem value="anthropic">anthropic</SelectItem>
               <SelectItem value="Xai">Xai</SelectItem>
+              <SelectItem value="ollama">Ollama</SelectItem>
               <SelectItem value="custom">custom</SelectItem>
             </SelectContent>
           </Select>
@@ -353,6 +354,29 @@ export function AiSettings({ saveButtonLabel }: AiSettingsProps) {
           >
             {saveButtonLabel ?? 'Save'}
           </Button>
+        </div>
+      )}
+
+        {aiProvider === 'ollama' && (
+        <div>
+          <p className="opacity-70 text-sm mb-4">
+            If you want to use an ollama model, choose this option and set the baseUrl.
+          </p>
+          <div className="flex gap-2">
+            <Input
+              name="baseUrl"
+              placeholder="http://localhost:11434/api"
+              value={baseUrl}
+              onChange={(e) => setBaseUrl(e.target.value)}
+            />
+            <Button
+              className="px-5"
+              onClick={() => updateConfigContext({ aiBaseUrl: baseUrl, aiModel: model })}
+              disabled={!customModelSaveEnabled}
+            >
+              {saveButtonLabel ?? 'Save'}
+            </Button>
+          </div>
         </div>
       )}
 

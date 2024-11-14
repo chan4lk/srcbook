@@ -1,5 +1,6 @@
-import { createOpenAI } from '@ai-sdk/openai';
+import { createOpenAI, OpenAIProvider } from '@ai-sdk/openai';
 import { createAnthropic } from '@ai-sdk/anthropic';
+import { createOllama } from 'ollama-ai-provider';
 import { getConfig } from '../config.mjs';
 import type { LanguageModel } from 'ai';
 import { getDefaultModel, type AiProviderType } from '@srcbook/shared';
@@ -40,6 +41,16 @@ export async function getModel(): Promise<LanguageModel> {
         apiKey: config.xaiKey,
       });
       return xai(model);
+
+    case 'ollama':
+      if (typeof aiBaseUrl !== 'string') {
+        throw new Error('Local AI base URL is not set');
+      }
+      const ollama = createOllama({
+        // optional settings, e.g.
+        baseURL: aiBaseUrl,
+      }) as OpenAIProvider;
+      return ollama(model); 
 
     case 'custom':
       if (typeof aiBaseUrl !== 'string') {
